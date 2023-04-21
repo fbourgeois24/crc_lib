@@ -1,6 +1,6 @@
 # Calcul de sommes de controle (CRC) en tout genre
 
-## Importer la bibliothèque : 
+## Importer la bibliothèque
 
 ```python
 import crc_lib
@@ -28,7 +28,8 @@ Il est possible de calculer une clé de contrôle ou de vérifier une clé exist
 resultat = crc_lib.vcs(data)
 ```
 
-Si data contient un vcs complet (12 chiffres) la fonction renverra `VRAI` si le vcs est correct et `FAUX` s'il ne l'est pas
+Si data contient un vcs complet (12 chiffres) la fonction renverra `VRAI` si le vcs est correct et `FAUX` s'il ne l'est pas.
+
 Si data contient un vcs sans la clé de contrôle (10 chiffres), la fonction renverra le vcs complet (12 chiffres) avec la clé de contrôle calculée
 
 ## BBAN -> IBAN
@@ -86,6 +87,7 @@ Il est possible de calculer une somme de contrôle ou de vérifier une somme exi
 resultat = crc_lib.ean_18(data)
 ```
 
-Si data contient un ean complet (18 chiffres) la fonction renverra `VRAI` si l'ean est correct et `FAUX` s'il ne l'est pas
+Si data contient un ean complet (18 chiffres) la fonction renverra `VRAI` si l'ean est correct et `FAUX` s'il ne l'est pas.
+
 Si data contient un ean sans la somme de contrôle (17 chiffres), la fonction renverra l'ean complet (18 chiffres) avec la somme de contrôle calculée
 
