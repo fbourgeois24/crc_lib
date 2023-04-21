@@ -31,7 +31,7 @@ resultat = crc_lib.vcs(data)
 Si data contient un vcs complet (12 chiffres) la fonction renverra `VRAI` si le vcs est correct et `FAUX` s'il ne l'est pas
 Si data contient un vcs sans la clé de contrôle (10 chiffres), la fonction renverra le vcs complet (12 chiffres) avec la clé de contrôle calculée
 
-### BBAN -> IBAN
+## BBAN -> IBAN
 
 ### Méthode de calcul
 
@@ -48,7 +48,7 @@ resultat = crc_lib.bban_iban(data)
 ```
 Data doit contenir le BBAN
 
-### EAN 18
+## EAN 18
 ***1 chiffre de clé de contrôle***
 
 ### Méthode de calcul
