@@ -3,23 +3,31 @@ Calcul de sommes de controle (CRC) en tout genre
 
 ## VCS
 ***2 chiffres de clé de contrôle***
-Popur calculer la clé de contrôle d'un VCS il faut faire un modulo (%) 97 des 10 premiers chiffres.
+
+Pour calculer la clé de contrôle d'un VCS il faut faire un modulo (%) 97 des 10 premiers chiffres.
+
 ATTENTION, cas particulier : si la clé de contrôle = 0 => elle est = 97 (la clé de contrôle ne peut JAMAIS être 0)
 
 Exemple pour le vcs 020343057642
 Clé de contrôle = 0203430576 % 97 = 42
 
-## bban -> iban
-Pour transformer un bban (12 chiffres) en iban (2 lettres et 14 chiffres) il faut ajouter BE si belgique + 2 chiffres
-Les 2 chiffres se calculent comme suit (si les 2 derniers chiffres du bban sont représentés par ab):
-98 - (abab111400 % 97)
+## BBAN -> IBAN
+Pour transformer un bban (12 chiffres) en iban (2 lettres et 14 chiffres) il faut ajouter BE si belgique + 2 chiffres.
+
+Les 2 chiffres se calculent comme suit (si les 2 derniers chiffres du bban sont représentés par ab): 98 - (abab111400 % 97)
 
 ## EAN 18
 ***1 chiffre de clé de contrôle***
+
 Pour calculer la somme de contrôle d'un ean à 18 chiffres, il faut additionner tous les chiffres (avec un poids différent) et calculer : 10 - (somme % 10).
+
 Le % correspond à l'opération "modulo".
+
 Poids du chiffre: si le rang du chiffre est pair (en commençant à zéro) le chiffre est multiplié par 3 sinon il est pris tel quel.
+
 ATTENTION, cas particulier: si la somme de contrôle = 10 => elle est = 0
+
+
 
 Exemple pour l'ean 542501390000184893, nous allons donc calculer le dernier chiffre => 3
 
