@@ -51,9 +51,9 @@ def bban_iban(data):
 
 def tva(data):
 	""" Numéro de TVA
-		Data doit contenir les 9 chiffres sans les 2 premières lettres
+		Data doit contenir les 10 chiffres sans les 2 premières lettres
 	"""
-	data = validate_data(data, (7, 9))
+	data = validate_data(data, (8, 10))
 
 	def crc_calc(payload):
 		crc = str(int(payload[:-2]) % 97).zfill(2)
@@ -61,7 +61,7 @@ def tva(data):
 			crc = '97'
 		return crc
 
-	if len(data) == 9:
+	if len(data) == 10:
 		# Si vcs complet on le vérifie
 		if data == data[:-2] + crc_calc(data):
 			return True
