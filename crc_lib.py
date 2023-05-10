@@ -49,6 +49,28 @@ def bban_iban(data):
 	return 98 - (int(data[10:10+2] + data[10:10+2] + '111400') % 97)
 
 
+def tva(data):
+	""" Numéro de TVA"""
+	data = validate_data(data, [9, 11])
+
+	def crc_calc(payload):
+		crc = str(int(payload[:10]) % 97).zfill(2)
+		if crc == '00':
+			crc = '97'
+		return crc
+
+	if len(data) == 12:
+		# Si vcs complet on le vérifie
+		if data == data[:10] + crc_calc(data):
+			return True
+		else:
+			return False
+
+	else:
+		# Si vcs incomplet on le renvoie complet
+		return data + crc_calc(data)
+
+
 def ean_18(data):
 	""" Calcul de la somme de contrôle d'un ean (18 chiffres)
 		si data contient l'ean complet, on le vérifie. Sinon on renvoie l'ean complet
