@@ -100,7 +100,7 @@ def ean_18_generate(data):
 		print(e)
 		return None, e
 	else:
-		return data + ean_18_crc_calc(data)
+		return data + ean_18_crc_calc(data), ""
 
 
 def ean_18_validate(data):
@@ -114,6 +114,6 @@ def ean_18_validate(data):
 		return False, e
 	else:
 		if data == data[:17] + ean_18_crc_calc(data):
-			return True
+			return True, ""
 		else:
-			return False
+			return False, ""
