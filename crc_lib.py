@@ -11,10 +11,10 @@ def validate_data(data, taille):
 
 	data = str(data)
 	if not data.isdigit():
-		raise ValueError("Les données ne peuvent comporter que des chiffres !")
+		raise ValueError("La valeur ne peut comporter que des chiffres !")
 
 	if len(data) not in taille:
-		raise ValueError(f"Les données doivent comporter {str(taille).replace(',', ' OU').replace('[', '').replace(']', '')} chiffres !")
+		raise ValueError(f"La valeur doit comporter {str(taille).replace(',', ' OU').replace('[', '').replace(']', '')} chiffres !")
 	
 	return data
 
@@ -98,7 +98,7 @@ def ean_18_generate(data):
 		data = validate_data(data, 17)
 	except Exception as e:
 		print(e)
-		return None
+		return None, e
 	else:
 		return data + ean_18_crc_calc(data)
 
@@ -111,7 +111,7 @@ def ean_18_validate(data):
 		data = validate_data(data, 18)
 	except Exception as e:
 		print(e)
-		return False
+		return False, e
 	else:
 		if data == data[:17] + ean_18_crc_calc(data):
 			return True
