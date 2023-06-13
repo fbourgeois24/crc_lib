@@ -15,6 +15,7 @@ def validate_data(data, taille):
 
 	if len(data) not in taille:
 		raise ValueError(f"Les données doivent comporter {str(taille).replace(',', ' OU').replace('[', '').replace(']', '')} chiffres !")
+	
 	return data
 
 def vcs(data):
@@ -74,13 +75,8 @@ def tva(data):
 		return data + crc_calc(data)
 
 
-def ean_18(data):
-	""" Calcul de la somme de contrôle d'un ean (18 chiffres)
-		si data contient l'ean complet, on le vérifie. Sinon on renvoie l'ean complet
-	"""
-	data = validate_data(data, (17, 18))
 
-	def crc_calc(payload):
+def ean_18_crc_calc(payload):
 		""" Calcul de la clé de contrôle de l'ean """
 		sum = 0
 		for seq, digit in enumerate(payload[:17]):
@@ -92,15 +88,32 @@ def ean_18(data):
 		crc = str(10 - (sum % 10))
 		if crc == '10':
 			crc = '0'
-
 		return crc
 
-	if len(data) == 18:
-		# Si ean complet, on le vérifie
-		if data == data[:17] + crc_calc(data):
+def ean_18_generate(data):
+	""" Calcul de la somme de contrôle d'un ean (18 chiffres)
+		si data contient l'ean complet, on le vérifie. Sinon on renvoie l'ean complet
+	"""
+	try:
+		data = validate_data(data, 17)
+	except Exception as e:
+		print(e)
+		return None
+	else:
+		return data + ean_18_crc_calc(data)
+
+
+def ean_18_validate(data):
+	""" Valider un code EAN à 18 chiffres 
+		Renvoie vrai ou faux si l'ean est valide ou non
+	"""
+	try:
+		data = validate_data(data, 18)
+	except Exception as e:
+		print(e)
+		return False
+	else:
+		if data == data[:17] + ean_18_crc_calc(data):
 			return True
 		else:
 			return False
-	else:
-		# Si vcs incomplet on le renvoie complet
-		return data + crc_calc(data)
