@@ -111,9 +111,9 @@ def ean_18_validate(data):
 		data = validate_data(data, 18)
 	except Exception as e:
 		print(e)
-		return False, e
+		return False
 	else:
 		if data == data[:17] + ean_18_crc_calc(data):
-			return True, ""
+			return True
 		else:
-			return False, ""
+			return False
