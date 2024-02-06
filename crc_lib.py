@@ -75,6 +75,32 @@ def tva(data):
 		return data + crc_calc(data)
 
 
+def tva_validate(data):
+	""" Numéro de TVA
+		Vérification d'un numéro de TVA au complet et on renvoie un Booléen
+	"""
+	if data is None or len(data) != 12:
+		return False
+	
+	data = data[-10:]
+	try:
+		data = validate_data(data, 10)
+	except:
+		return False
+
+	def crc_calc(payload):
+		# crc = str(int(payload[:-2]) % 97).zfill(2)
+		crc = str(97 - int(payload) % 97).zfill(2)
+		if crc == '00':
+			crc = '97'
+		return crc
+
+	if data == data[:-2] + crc_calc(data[:-2]):
+		return True
+	else:
+		return False
+
+
 
 def ean_18_crc_calc(payload):
 		""" Calcul de la clé de contrôle de l'ean """
@@ -117,3 +143,7 @@ def ean_18_validate(data):
 			return True
 		else:
 			return False
+
+
+if __name__ == '__main__':
+	print(tva_validate("0201712587"))
